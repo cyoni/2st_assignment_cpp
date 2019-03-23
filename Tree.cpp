@@ -4,13 +4,18 @@
 #include "Tree.hpp"
 
 using namespace std;
+using namespace ariel;
 
-ariel::Node *head;
+ariel::Tree::Tree(){
+head=NULL;
+}
 
 ariel::Node::~Node(void){}
+ariel::Tree::~Tree(void){}
 
 int ariel::Tree::size()
 {
+
     return sizeofTree;
 }
 
@@ -20,6 +25,12 @@ ariel::Tree& ariel::Tree::remove(int number)
 	int found = contains(number);
 
 	if (found==1){
+	if (size()==1 && number == root()){
+	delete head;
+	head=NULL;
+	sizeofTree--;
+	return (*this);	
+	}
 
         Node *current = head;
 	Node *parent=head;
@@ -71,16 +82,17 @@ ariel::Tree& ariel::Tree::remove(int number)
 	}
 	else{ // 2. it has only one child
 	
-	if (current->right == NULL)
+	if (current->right == NULL){
 	if (current == head) head= current->left;
-	else if (isLeft==0) parent->left=current->left;
-	else parent->right=current->left;	
+	else {if (isLeft==0) parent->left=current->left;
+	else parent->right=current->left;}}
 	
-	else if (current->left == NULL)
-	if (current == head) head= current->right;
-	else if (isLeft==0) parent->left=current->right;
-	else parent->right=current->right;	
-	
+	else{ if (current->left == NULL){
+	if (current == head) {head= current->right;}
+	else {if (isLeft==0) parent->left=current->right;
+	else {parent->right=current->right;}	}
+	} }
+
 	
 	}
 
@@ -114,6 +126,7 @@ bool ariel::Tree::contains(int number)
 
 int ariel::Tree::root()
 {
+
 return head->data;
 }
 
@@ -122,10 +135,10 @@ int ariel::Tree::parent(int i)
 
    int found = contains(i);
 
-    if (found == 0){
-       throw std::invalid_argument("The number does not exist");
-    }
-	if (head->data == i) return -1;
+    if (found == 0 || head->data == i){
+       throw std::invalid_argument("check your input & tree");
+    } 
+
 
   	Node *current = head;
 	Node *parent=NULL;
@@ -151,7 +164,7 @@ int ariel::Tree::left(int i)
   int found = contains(i);
 
     if (found == 0){
-    cout << "this number is not in this tree." << endl;
+   throw std::invalid_argument("The number does not exist");
 	return 0;
     }
 
@@ -216,13 +229,14 @@ ariel::Tree::print(head);
 void ariel::Tree::print(Node *current)
 {
 
+
  if (current==NULL) return;
 
  
  cout << current->data << endl;
 
- ariel::Tree::print(current->left);
- ariel::Tree::print(current->right);
+ print(current->left);
+ print(current->right);
 
 }
 
@@ -232,6 +246,7 @@ ariel::Tree& ariel::Tree::insert(int number)
     if (sizeofTree==0){ 
 	
 	head = new Node(number);
+
         sizeofTree=1; 
     }
     else{
@@ -255,7 +270,6 @@ ariel::Tree& ariel::Tree::insert(int number)
 	sizeofTree++;
 	}
     }
-
     cout << "after insert, size is " << sizeofTree << endl; 
     return (*this);
 }

@@ -10,14 +10,11 @@ namespace ariel
 {
 
     class Node{
-
 	public:
-	int data;
 	 ~Node();
-	
 	Node *left;
 	Node *right;
-
+	int data;
 	Node(int d){
 	data=d;
 	left=right=NULL;
@@ -28,6 +25,10 @@ namespace ariel
     class Tree{
         
         public:
+	
+        Node *head;
+	Tree();
+	~Tree();
         int sizeofTree=0;
         int size();
         Tree& remove(int n);
