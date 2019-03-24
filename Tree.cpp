@@ -1,6 +1,4 @@
 #include <iostream>
-#include <mutex>
-#include <thread>
 #include "Tree.hpp"
 
 using namespace std;
@@ -8,14 +6,18 @@ using namespace ariel;
 
 ariel::Tree::Tree(){
 head=NULL;
+sizeofTree=0;
 }
 
 ariel::Node::~Node(void){}
 ariel::Tree::~Tree(void){}
 
+ariel::Node::Node(int d){
+	data=d;
+	left=right=NULL;
+}
 int ariel::Tree::size()
 {
-
     return sizeofTree;
 }
 
@@ -53,8 +55,6 @@ ariel::Tree& ariel::Tree::remove(int number)
 	}
 	// 3. the deleted node has two children
 	else if (current->left != NULL && current->right != NULL) {
-///////////////////////////////////
-
 	Node *succ = current;
 	Node *succparent = current;
 	Node *del=current;
@@ -76,9 +76,6 @@ ariel::Tree& ariel::Tree::remove(int number)
 	else if(isLeft==0) parent->left=succ;
 	else parent->right=succ;
 	succ->left=current->left;
-	
-
-//////////////////////////////////
 	}
 	else{ // 2. it has only one child
 	
@@ -126,11 +123,11 @@ bool ariel::Tree::contains(int number)
 
 int ariel::Tree::root()
 {
-if (sizeofTree==0){
-       throw std::invalid_argument("check your input & tree");
-}
+	if (sizeofTree==0){
+	       throw std::invalid_argument("check your input & tree");
+	}
 
-return head->data;
+	return head->data;
 }
 
 int ariel::Tree::parent(int i)
@@ -272,7 +269,6 @@ ariel::Tree& ariel::Tree::insert(int number)
 	else parent->right=tmp;
 	sizeofTree++;
 	}
-    }
-    cout << "after insert, size is " << sizeofTree << endl; 
+    } 
     return (*this);
 }
