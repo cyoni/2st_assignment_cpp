@@ -20,6 +20,12 @@ int ariel::Tree::size()
 
 ariel::Tree& ariel::Tree::remove(int number)
 {
+
+	if (sizeofTree==0){
+
+		throw std::invalid_argument("Tree is empty");
+		
+	}
 	int isLeft=0;
 	int found = contains(number);
 
