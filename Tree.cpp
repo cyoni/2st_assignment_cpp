@@ -1,6 +1,4 @@
 #include <iostream>
-#include <mutex>
-#include <thread>
 #include "Tree.hpp"
 
 using namespace std;
@@ -8,6 +6,7 @@ using namespace ariel;
 
 ariel::Tree::Tree(){
 head=NULL;
+sizeofTree=0;
 }
 
 ariel::Node::~Node(void){}
@@ -228,48 +227,34 @@ ariel::Tree::print(head);
 
 void ariel::Tree::print(Node *current)
 {
-
-
  if (current==NULL) return;
-
- 
  cout << current->data << endl;
-
  print(current->left);
  print(current->right);
 
 }
 
+
+Node* ariel::Tree::newNode(int key){
+Node *node=new Node(key);
+return node;
+}
+
+void ariel::Tree::insert(Node *&root, int key){
+if (root==NULL){
+root=newNode(key);
+sizeofTree++;
+return;
+}
+if (key < root->data) insert(root->left, key);
+else insert(root->right, key);
+}
+
+
 ariel::Tree& ariel::Tree::insert(int number)  
 {
-	int ok=0;
-    if (sizeofTree==0){ 
-	
-	head = new Node(number);
+    if (contains(number)==1){throw std::invalid_argument("The number already in the tree");}
 
-        sizeofTree=1; 
-    }
-    else{
-        Node *current = head;
-	Node *parent=NULL;
-	Node *tmp = new Node(number);
-	
-	while (current != NULL){
-
-	parent=current;
-	if (current->data == number){
-	throw std::invalid_argument("The number is already exists");
-	}
-	if (current->data > number) current=current->left;
-	else current=current->right;
-	}
-	
-	if (ok==0){
-	if (parent->data>number) parent->left=tmp;
-	else parent->right=tmp;
-	sizeofTree++;
-	}
-    }
-    cout << "after insert, size is " << sizeofTree << endl; 
+    insert(head, number);
     return (*this);
 }
