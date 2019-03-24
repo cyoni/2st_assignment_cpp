@@ -112,7 +112,21 @@ void ariel::Tree::remove(int number)
 
 bool ariel::Tree::contains(int number)
 {
-      return false;
+        Node *current = head;
+	Node *parent=NULL;
+
+	while (current != NULL){
+
+	parent=current;
+	if (current->data == number){
+	return true;
+	break;
+	}
+
+	if (current->data > number) current=current->left;
+	else current=current->right;
+	}
+  	return false;
 }
 
 int ariel::Tree::root()
@@ -142,16 +156,11 @@ int ariel::Tree::right(int i)
 
 void ariel::Tree::print()
 {
-cout << "this tree is: (inorder)" << endl;
-ariel::Tree::print(head);
+
 }
 
 void ariel::Tree::print(Node *current)
 {
- if (current==NULL) return;
- cout << current->data << endl;
- print(current->left);
- print(current->right);
 
 }
 
