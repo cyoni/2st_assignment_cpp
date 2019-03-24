@@ -35,8 +35,8 @@ namespace ariel
         int right(int);
         void print();
 	void print(Node *head);
-        Tree& insert(int);
-	void insert(Node*&,int);
-	Node* newNode(int);
+        void insert(int);
+
+	
     };
 }
