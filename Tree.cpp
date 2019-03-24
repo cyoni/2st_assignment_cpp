@@ -112,21 +112,7 @@ void ariel::Tree::remove(int number)
 
 bool ariel::Tree::contains(int number)
 {
-        Node *current = head;
-	Node *parent=NULL;
-
-	while (current != NULL){
-
-	parent=current;
-	if (current->data == number){
-	return true;
-	break;
-	}
-
-	if (current->data > number) current=current->left;
-	else current=current->right;
-	}
-  	return false;
+      return false;
 }
 
 int ariel::Tree::root()
