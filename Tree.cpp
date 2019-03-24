@@ -34,7 +34,7 @@ void ariel::Tree::remove(int number)
 	delete head;
 	head=NULL;
 	sizeofTree--;
-	return (*this);	
+	return;
 	}
 
         Node *current = head;
@@ -107,7 +107,7 @@ void ariel::Tree::remove(int number)
 	throw std::invalid_argument("The number you are trying to remove does not exist");
 	}
 
-	return (*this);
+	
 }
 
 bool ariel::Tree::contains(int number)
