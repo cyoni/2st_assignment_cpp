@@ -18,7 +18,7 @@ int ariel::Tree::size()
     return sizeofTree;
 }
 
-ariel::Tree& ariel::Tree::remove(int number)
+void ariel::Tree::remove(int number)
 {
 
 	if (sizeofTree==0){
