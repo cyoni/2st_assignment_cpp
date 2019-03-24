@@ -1,4 +1,7 @@
 #include <iostream>
+#include <mutex>
+#include <thread>
+#include <mutex>
 
 
 using namespace std;
@@ -16,6 +19,7 @@ namespace ariel
 	data=d;
 	left=right=NULL;
 	}
+
 	};
 
     class Tree{
@@ -25,18 +29,17 @@ namespace ariel
         Node *head;
 	Tree();
 	~Tree();
-        int sizeofTree;
+        int sizeofTree=0;
         int size();
-        void remove(int);
-        bool contains(int);
+        Tree& remove(int n);
+        bool contains(int n);
         int root();
-        int parent(int);
-        int left(int);
-        int right(int);
+        int parent(int i);
+        int left(int i);
+        int right(int i);
         void print();
 	void print(Node *head);
-        void insert(int);
+        Tree& insert(int n);
 
-	
     };
 }
